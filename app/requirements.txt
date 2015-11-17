@@ -1,1 +1,2 @@
 modbus_tk >= 0.4.3
+pyserial >= 2.7

@@ -1,4 +1,7 @@
 #!/bin/bash
+
+echo BB-UART4 > /sys/devices/platform/bone_capemgr/slots
+
 # Set the root password as resin device UUID if not set as an ENV variable
 export PASSWD=${PASSWD:=$RESIN_DEVICE_UUID}
 echo "root:$PASSWD" | chpasswd

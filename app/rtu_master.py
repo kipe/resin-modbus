@@ -14,7 +14,7 @@ from modbus_tk import modbus_rtu
 
 def init_serial():
     ser = serial.Serial(
-        port='/dev/ttyO4',
+        port='/dev/ttyS4',
         baudrate=9600,
         timeout=1,
         parity=serial.PARITY_NONE,

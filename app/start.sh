@@ -2,10 +2,13 @@
 
 echo BB-UART4 > /sys/devices/platform/bone_capemgr/slots
 
-# Set the root password as resin device UUID if not set as an ENV variable
-export PASSWD=${PASSWD:=$RESIN_DEVICE_UUID}
-echo "root:$PASSWD" | chpasswd
-dropbear -E
+# Start dropbear, if running on resin.io
+if [ -z "$RESIN_DEVICE_UUID" ]; then
+    # Set the root password as resin device UUID if not set as an ENV variable
+    export PASSWD=${PASSWD:=$RESIN_DEVICE_UUID}
+    echo "root:$PASSWD" | chpasswd
+    dropbear -E
+fi
 
 /usr/bin/env python /app/app.py
 

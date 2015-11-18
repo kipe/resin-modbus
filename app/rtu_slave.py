@@ -15,7 +15,7 @@ from modbus_tk import modbus_rtu
 
 def init_serial():
     ser = serial.Serial(
-        port='/dev/ttyS4',
+        port='/dev/ttyO4' if os.environ.get('RESIN_DEVICE_UUID', None) is None else '/dev/ttyS4',
         baudrate=9600,
         timeout=1,
         parity=serial.PARITY_NONE,
@@ -88,6 +88,8 @@ def main():
             except Exception as e:
                 print(e)
                 break
+    except Exception as e:
+        print(e)
     finally:
         ser.close()
         server.stop()

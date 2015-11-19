@@ -1,6 +1,7 @@
 #!/bin/bash
 
-echo BB-UART4 > /sys/devices/platform/bone_capemgr/slots
+# cape_enable=capemgr.enable_partno=BB-UART4
+# echo BB-UART4 > /sys/devices/platform/bone_capemgr/slots
 
 # Start dropbear, if running on resin.io
 if [ -z "$RESIN_DEVICE_UUID" ]; then
@@ -10,9 +11,9 @@ if [ -z "$RESIN_DEVICE_UUID" ]; then
     dropbear -E
 fi
 
-/usr/bin/env python /app/app.py
 
 while [[ true ]]; do
-    echo "Crashed, just sleeping...."
+    /usr/bin/env python /app/app.py
+    echo "Crashed, sleeping for 1 minute...."
     sleep 60
 done

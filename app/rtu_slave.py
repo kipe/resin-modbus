@@ -5,10 +5,10 @@ import time
 import serial
 import fcntl
 import struct
-import random
 import modbus_tk
-import modbus_tk.defines as cst
 from modbus_tk import modbus_rtu
+import slaves
+
 
 # http://inspire.logicsupply.com/2014/09/beaglebone-rs-485-communication.html
 
@@ -72,18 +72,10 @@ def main():
         server = modbus_rtu.RtuServer(ser)
         server.start()
 
-        slave = server.add_slave(1)
-        slave.add_block('0', cst.HOLDING_REGISTERS, 0x321, 4)
-        logger.info('Slave started.')
+        slaves.create(server, logger)
 
         while True:
             try:
-                slave.set_values('0', 0x321, [
-                    random.randrange(1390, 1400),
-                    random.randrange(1390, 1400),
-                    random.randrange(1390, 1400),
-                    random.randrange(1390, 1400),
-                ])
                 time.sleep(1)
             except Exception as e:
                 print(e)

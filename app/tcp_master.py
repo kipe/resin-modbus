@@ -3,8 +3,9 @@
 import os
 import time
 import modbus_tk
-import modbus_tk.defines as cst
 from modbus_tk import modbus_tcp
+import configuration
+import slaves
 
 
 def main():
@@ -15,9 +16,11 @@ def main():
         master.set_timeout(5.0)
         logger.info('Master connected.')
 
+        config = configuration.load()
+
         while True:
             try:
-                logger.info(master.execute(1, cst.READ_HOLDING_REGISTERS, 0x321, 4))
+                slaves.read(master, config)
                 time.sleep(1)
             except Exception as e:
                 print(e)

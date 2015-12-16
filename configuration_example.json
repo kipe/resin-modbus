@@ -1,0 +1,13 @@
+{
+    "mode": "RTU_MASTER",
+    "baudrate": 19200,
+    "devices": [
+        {
+            "unit":1,
+            "input_registers":[],
+            "coils":[1,2,74,89],
+            "discrete_inputs":[],
+            "holding_registers":[801,802,803,804]
+        }
+    ]
+}

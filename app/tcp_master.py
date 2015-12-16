@@ -20,7 +20,7 @@ def main():
 
         while True:
             try:
-                slaves.read(master, config)
+                slaves.read(master, config.get('devices', []))
                 time.sleep(1)
             except Exception as e:
                 print(e)

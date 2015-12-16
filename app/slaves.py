@@ -7,7 +7,7 @@ import log
 
 
 def create(server, logger=None):
-    for s in configuration.load():
+    for s in configuration.load().get('devices', []):
         slave = server.add_slave(s['unit'])
         for x in s['coils']:
             block_name = 'unit_%i_coil_%i' % (s['unit'], x)

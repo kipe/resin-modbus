@@ -13,10 +13,10 @@ import slaves
 # http://inspire.logicsupply.com/2014/09/beaglebone-rs-485-communication.html
 
 
-def init_serial():
+def init_serial(config):
     ser = serial.Serial(
         port='/dev/ttyO4' if os.environ.get('RESIN_DEVICE_UUID', None) is None else '/dev/ttyS4',
-        baudrate=9600,
+        baudrate=config.get('baudrate', 19200),
         timeout=1,
         parity=serial.PARITY_NONE,
         stopbits=serial.STOPBITS_ONE,
@@ -67,16 +67,17 @@ def main():
     try:
         logger = modbus_tk.utils.create_logger(name="console", record_format="%(message)s")
 
-        ser = init_serial()
+        config = configuration.load()
+
+        ser = init_serial(config)
 
         master = modbus_rtu.RtuMaster(ser)
         master.set_timeout(5.0)
         logger.info('Master connected.')
-        config = configuration.load()
 
         while True:
             try:
-                slaves.read(master, config)
+                slaves.read(master, config.get('devices', []))
                 time.sleep(1)
             except Exception as e:
                 print(e)

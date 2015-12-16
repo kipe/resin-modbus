@@ -3,13 +3,14 @@
 import os
 import json
 
+CONFIG_FILE = '/data/modbus/configuration.json'
+
 
 def load():
-    configuration = json.loads(os.environ.get('CONFIGURATION', '[]'))
-    for c in configuration:
-        c['unit'] = int(c['unit'])
-        c['coils'] = [int(x) for x in c.get('coils', [])]
-        c['discrete_inputs'] = [int(x) for x in c.get('discrete_inputs', [])]
-        c['input_registers'] = [int(x) for x in c.get('input_registers', [])]
-        c['holding_registers'] = [int(x) for x in c.get('holding_registers', [])]
+    configuration = {}
+    if not os.path.exists(CONFIG_FILE):
+        return configuration
+
+    with open(CONFIG_FILE, 'r') as f:
+        configuration = json.loads(f.read())
     return configuration

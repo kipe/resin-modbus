@@ -6,5 +6,5 @@ git clone https://github.com/kipe/resin-modbus.git ~/resin-modbus
 ln -s ~/resin-modbus/app /app
 cp ~/resin-modbus/configuration_example.json /data/modbus/configuration.json
 /usr/local/bin/pip install -r /app/requirements.txt
-ln -s /app/supervisor.conf /etc/supervisor/conf.d/modbus.conf
+ln -s ~/resin-modbus/supervisor.conf /etc/supervisor/conf.d/modbus.conf
 service supervisor restart
